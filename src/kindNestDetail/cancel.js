@@ -2,9 +2,12 @@ import React from 'react';
 
 function Cancel(props){
   return(
-    <div>
-      {props.cancelTime}
-    </div>
+    <label>
+      <select>
+        {props.choice.map((op) =>
+        <option key={op.pdId}>{op.pdName}</option>)}
+      </select>
+    </label>
   );
 }
 

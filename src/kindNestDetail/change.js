@@ -2,9 +2,12 @@ import React from 'react';
 
 function Change(props){
   return(
-    <div>
-      {props.changeTime}
-    </div>
+    <label>
+      <select>
+        {props.choice.map((op) =>
+        <option key={op.pdId}>{op.pdName}</option>)}
+      </select>
+    </label>
   );
 }
 

@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import MedicalTableRow from './medical-table-row';
+import Accept from "./kindNestDetail/accept";
+import Change from "./kindNestDetail/change";
+import Cancel from "./kindNestDetail/cancel";
+import Content from './kindDetails/content';
+import Time from './kindDetails/time';
+import { consultationKinds } from './seed';
 
 function Reservation(){
 
@@ -21,9 +26,26 @@ function Reservation(){
         </tr>
       </thead>
       <tbody>
-        {consultationKinds.map((kind) => {
-          return <MedicalTableRow key={kind.id} consultationKind = {kind}/>;
-        })}
+        {consultationKinds.map((kind) =>
+          kind.consultingChoice.map((choice, i) =>
+                  i === 0 ? (
+                <tr key={choice.choiceId}>
+                    <td rowSpan = {kind.consultingChoice.length}><Content name = {kind.name}/></td>
+                    <td rowSpan = {kind.consultingChoice.length}><Time reservationTime = {kind.reservationTime}/></td>
+                    <td> {choice.choiceName}</td>
+                    <td><Accept choice = {choice.acceptList}/></td>
+                    <td><Change choice = {choice.changeList}/></td>
+                    <td><Cancel choice = {choice.cancelList}/></td>
+                </tr>
+                  ) : (
+                  <tr key={choice.choiceId}>
+                    <td> {choice.choiceName}</td>
+                    <td><Accept choice = {choice.acceptList}/></td>
+                    <td><Change choice = {choice.changeList}/></td>
+                    <td><Cancel choice = {choice.cancelList}/></td>
+                </tr>
+                  )
+        ))}
       </tbody>
     </table>
   </body>
@@ -37,354 +59,3 @@ function Reservation(){
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Reservation />);
-
-const consultationKinds = [
-  {
-    id: 1,
-    name: "診察",
-    reservationTime: { amFrom: "11:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-    consultingChoice: [
-      {
-        choiceId: 1,
-        choiceName: "",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "予防接種",
-    reservationTime: { amFrom: "11:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-    consultingChoice: [
-      {
-        choiceId: 1,
-        choiceName: "4種混合",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-      {
-        choiceId: 2,
-        choiceName: "MR(麻疹、風疹)",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-      {
-        choiceId: 3,
-        choiceName: "ポリオ(不活性)",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-      {
-        choiceId: 4,
-        choiceName: "Hib",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-      {
-        choiceId: 5,
-        choiceName: "肺炎球菌",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "健診",
-    reservationTime: { amFrom: "11:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-    consultingChoice: [
-      {
-        choiceId: 1,
-        choiceName: "",
-        acceptList: [
-            {pdId: 1, pdName: "1時間前まで"},
-            {pdId: 2, pdName: "いつでも可能"},
-            {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-            {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        changeList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-        cancelList: [
-          {pdId: 1, pdName: "1時間前まで"},
-          {pdId: 2, pdName: "いつでも可能"},
-          {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-          {pdId: 4, pdName: "自由に入力してください"},
-          ],
-      },
-    ],
-  },
-];
-//   {
-//     id: 4,
-//     name: "インフルエンザ",
-//     reservationTime: { amFrom: "09:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-//     consultingChoice: [
-//       {
-//         choiceName: "",
-//         acceptList: [
-//           [
-//             {pdId: 1, pdName: "1時間前まで"},
-//             {pdId: 2, pdName: "いつでも可能"},
-//             {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//             {pdId: 4, pdName: "自由に入力してください"},
-//           ],
-//           [
-//             {pdFrom: "", pdTo: ""},
-//           ],
-//         ],
-//         changeList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//         cancelList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//       }
-//     ],
-//   },
-//   {
-//     id: 5,
-//     name: "コロナワクチン",
-//     reservationTime: { amFrom: "09:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-//     consultingChoice: [
-//       {
-//         choiceName: "",
-//         acceptList: [
-//           [
-//             {pdId: 1, pdName: "1時間前まで"},
-//             {pdId: 2, pdName: "いつでも可能"},
-//             {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//             {pdId: 4, pdName: "自由に入力してください"},
-//           ],
-//           [
-//             {pdFrom: "", pdTo: ""},
-//           ],
-//         ],
-//         changeList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//         cancelList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//       }
-//     ],
-//   },
-//   {
-//     id: 6,
-//     name: "オンライン診療",
-//     reservationTime: { amFrom: "09:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-//     consultingChoice: [
-//       {
-//         choiceName: "",
-//         acceptList: [
-//           [
-//             {pdId: 1, pdName: "1時間前まで"},
-//             {pdId: 2, pdName: "いつでも可能"},
-//             {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//             {pdId: 4, pdName: "自由に入力してください"},
-//           ],
-//           [
-//             {pdFrom: "", pdTo: ""},
-//           ],
-//         ],
-//         changeList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//         cancelList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//       }
-//     ],
-//   },
-//   {
-//     id: 7,
-//     name: "PCR検査",
-//     reservationTime: { amFrom: "09:00", amTo: "13:00", pmFrom: "14:00", pmTo: "17:00" },
-//     consultingChoice: [
-//       {
-//         choiceName: "",
-//         acceptList: [
-//           [
-//             {pdId: 1, pdName: "1時間前まで"},
-//             {pdId: 2, pdName: "いつでも可能"},
-//             {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//             {pdId: 4, pdName: "自由に入力してください"},
-//           ],
-//           [
-//             {pdFrom: "", pdTo: ""},
-//           ],
-//         ],
-//         changeList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//         cancelList: [
-//         [
-//           {pdId: 1, pdName: "1時間前まで"},
-//           {pdId: 2, pdName: "いつでも可能"},
-//           {pdId: 3, pdName: "翌日午前は前日23:59/午後は午前11:59まで"},
-//           {pdId: 4, pdName: "自由に入力してください"},
-//         ],
-//         [
-//           {pdFrom: "", pdTo: ""},
-//         ],
-//         ],
-//       }
-//     ],
-//   },
-// ];

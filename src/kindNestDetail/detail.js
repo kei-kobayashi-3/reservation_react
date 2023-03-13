@@ -1,9 +1,9 @@
 import React from 'react';
 
 function Detail(props){
-  <div>
-    {props.choice.choiceName}
-  </div>
+  <>
+    {props.choice}
+  </>
 }
 
 export default Detail;
